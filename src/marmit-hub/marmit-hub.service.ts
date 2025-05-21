@@ -23,8 +23,16 @@ export class MarmitHubService {
 
   async create(createMarmitHubDto: CreateMarmitHubDto): Promise<MarmitHub> {
     const marmitHub = await this.prisma.marmitHub.create({
-      data: createMarmitHubDto,
-    });
+      data: {
+        descricao: createMarmitHubDto.descricao,
+        data_food: createMarmitHubDto.data_food,
+        disp_ped: createMarmitHubDto.disp_ped,
+        cod_tamanho: createMarmitHubDto.cod_tamanho,
+        valor_tamanho: createMarmitHubDto.valor_tamanho,
+
+      }
+
+    },);
     return this.mapToEntity(marmitHub);
   }
 
