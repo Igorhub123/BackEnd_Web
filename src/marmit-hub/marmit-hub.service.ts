@@ -59,6 +59,18 @@ export class MarmitHubService {
     return this.mapToEntity(marmitHub);
   }
 
+  async findByDescricao(descricao: string): Promise<MarmitHub[]> {
+    const marmitHubs = await this.prisma.marmitHub.findMany({
+      where: {
+        descricao: {
+          contains: descricao,
+          mode: 'insensitive',
+        },
+      },
+    });
+    return marmitHubs.map(marmitHub => this.mapToEntity(marmitHub));
+  }
+
   async remove(id: number): Promise<MarmitHub> {
     const deletedMarmitHub = await this.prisma.marmitHub.delete({
       where: { id },

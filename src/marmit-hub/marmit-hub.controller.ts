@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+// marmit-hub.controller.ts
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { MarmitHubService } from './marmit-hub.service';
 import { CreateMarmitHubDto } from './dto/create-marmit-hub.dto';
 import { UpdateMarmitHubDto } from './dto/update-marmit-hub.dto';
@@ -13,7 +14,10 @@ export class MarmitHubController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Query('descricao') descricao?: string) {
+    if (descricao) {
+      return this.marmitHubService.findByDescricao(descricao);
+    }
     return this.marmitHubService.findAll();
   }
 
